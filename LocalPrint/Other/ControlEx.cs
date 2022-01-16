@@ -16,7 +16,7 @@ namespace LocalPrint.Other
         private const int BOX_SIZE = 7;  //调整大小触模柄方框大小   
 
         public bool _IsCtrlKey = false;
-        private TextBox _textbox;
+        private MaskedTextBox _textbox;
         private Control _MControl = null;
         private bool _IsMouseDown = false;
         private Point _oPointClicked;
@@ -277,7 +277,7 @@ namespace LocalPrint.Other
 
         private void CreateTextBox()
         {
-            _textbox = new TextBox();
+            _textbox = new MaskedTextBox();
             _textbox.CreateControl();
             _textbox.Parent = _MControl.Parent;
             _textbox.Width = 0;

@@ -99,6 +99,11 @@
     </Compile>
     <Compile Include="Other\ControlEx.cs" />
     <Compile Include="Other\ReadTool.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Template\TemplateHelper.cs" />
     <Compile Include="Template\TemplateParse.cs" />
     <Compile Include="Other\IniFileHelper.cs" />
@@ -132,14 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -156,8 +156,6 @@
     <Content Include="printer-blue.ico" />
     <None Include="Resources\System.Drawing.Common.dll" />
     <None Include="Resources\BarcodeStandard.dll" />
-    <None Include="Resources\WinForm.MoveControl.dll" />
-    <None Include="Resources\PrintZzp.dll" />
     <None Include="Resources\Newtonsoft.Json.dll" />
   </ItemGroup>
   <ItemGroup />

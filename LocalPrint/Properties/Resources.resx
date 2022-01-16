@@ -124,13 +124,7 @@
   <data name="Newtonsoft_Json" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Newtonsoft.Json.dll;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="PrintZzp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PrintZzp.dll;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="System_Drawing_Common" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\System.Drawing.Common.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="WinForm_MoveControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WinForm.MoveControl.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

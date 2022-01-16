@@ -83,29 +83,9 @@ namespace LocalPrint.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
-        internal static byte[] PrintZzp {
-            get {
-                object obj = ResourceManager.GetObject("PrintZzp", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
         internal static byte[] System_Drawing_Common {
             get {
                 object obj = ResourceManager.GetObject("System_Drawing_Common", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] WinForm_MoveControl {
-            get {
-                object obj = ResourceManager.GetObject("WinForm_MoveControl", resourceCulture);
                 return ((byte[])(obj));
             }
         }
