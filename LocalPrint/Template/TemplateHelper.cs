@@ -226,7 +226,10 @@ namespace LocalPrint.Template
         [MyControlAttibute("高度", "获取或者设置控件高度", "")]
         public int Height
         {
-            get { return this._Control.Height; }
+            get {
+                this._Control.Multiline = true;//这里要设置为多行,不然高度会固定为21
+                return this._Control.Height; 
+            }
             set
             {
                 this._Control.Height = (int)value;
