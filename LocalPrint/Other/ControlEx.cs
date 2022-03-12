@@ -159,6 +159,7 @@ namespace LocalPrint.Other
             MoveHandles();
             ShowHandles();
             _MControl.Visible = true;
+            _MControl.Focus();
         }
 
         private void Control_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
