@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using ZXing;
+using ZXing.Common;
+using static ZXing.QrCode.Internal.Mode;
 
 namespace LocalPrint.Template
 {
@@ -337,21 +340,17 @@ namespace LocalPrint.Template
         {
             try
             {
-                BarcodeLib.Barcode b = new BarcodeLib.Barcode();//实例化一个条码对象
-                BarcodeLib.TYPE type = BarcodeLib.TYPE.CODE128;//编码类型
-                b.BackColor = System.Drawing.Color.White;//图片背景颜色  
-                b.ForeColor = System.Drawing.Color.Black;//条码颜色  
-                b.IncludeLabel = true;
-                b.Alignment = BarcodeLib.AlignmentPositions.CENTER;
-                b.LabelPosition = BarcodeLib.LabelPositions.BOTTOMCENTER;
-                b.ImageFormat = System.Drawing.Imaging.ImageFormat.Jpeg;//图片格式  
-                System.Drawing.Font font = new System.Drawing.Font("verdana", 10f);//字体设置  
-                b.LabelFont = font;
-                b.Width = ImgWidth;//图片宽度设置(px单位)
-                b.Height = ImgHeight;//图片高度设置(px单位)
+                // 配置参数
+                Dictionary<EncodeHintType, Object> hints = new Dictionary<EncodeHintType, object>();
+                hints.Add(EncodeHintType.ERROR_CORRECTION, ZXing.QrCode.Internal.ErrorCorrectionLevel.L);  // 容错级别 这里选择最高H级别
+                hints.Add(EncodeHintType.MARGIN, 0);//设置边距为0
+                hints.Add(EncodeHintType.PURE_BARCODE, true);//可以设置这个属性是否显示条码底部内容,true为不显示,false反之
+                MultiFormatWriter writer = new MultiFormatWriter();
 
-                //获取条码图片
-                System.Drawing.Image BarcodePicture = b.Encode(type, BarcodeString);
+                // 图像数据转换，使用了矩阵转换 参数顺序分别为：编码内容，编码类型，生成图片宽度，生成图片高度，设置参数
+                ZXing.Common.BitMatrix bm = writer.encode(BarcodeString, ZXing.BarcodeFormat.CODE_128, ImgWidth*2, ImgHeight*2, hints);
+                BarcodeWriter barcodeWriter = new BarcodeWriter();
+                System.Drawing.Image BarcodePicture = RemoveWhiteMargin(bm, barcodeWriter.Write(bm));//去除白边 
 
                 //BarcodePicture.Save(@"D:\Barcode.jpg");
 
@@ -362,6 +361,22 @@ namespace LocalPrint.Template
             {
                 return null;
             }
+        }
+
+        private static Bitmap RemoveWhiteMargin(ZXing.Common.BitMatrix bitMatrix, Bitmap bitmap)
+        {
+
+            //获取参数
+            int[] rec = bitMatrix.getEnclosingRectangle();
+            int left = rec[0];
+            int top = rec[1];
+            int width = rec[2];
+            int height = rec[3];
+            Bitmap newImg = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage(newImg);
+            //截取
+            g.DrawImage(bitmap, 0, 0, new Rectangle(left, top, newImg.Width, newImg.Height), GraphicsUnit.Pixel);
+            return newImg;
         }
     }
 

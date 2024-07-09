@@ -59,35 +59,5 @@ namespace LocalPrint.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] BarcodeStandard {
-            get {
-                object obj = ResourceManager.GetObject("BarcodeStandard", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] Newtonsoft_Json {
-            get {
-                object obj = ResourceManager.GetObject("Newtonsoft_Json", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] System_Drawing_Common {
-            get {
-                object obj = ResourceManager.GetObject("System_Drawing_Common", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

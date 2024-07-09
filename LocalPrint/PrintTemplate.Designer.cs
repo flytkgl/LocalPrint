@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("画布");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("画布");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrintTemplate));
             this.panelCanvas = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -242,10 +242,10 @@
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Margin = new System.Windows.Forms.Padding(0);
             this.treeView.Name = "treeView";
-            treeNode1.Name = "panel";
-            treeNode1.Text = "画布";
+            treeNode2.Name = "panel";
+            treeNode2.Text = "画布";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeView.Size = new System.Drawing.Size(211, 189);
             this.treeView.TabIndex = 22;
             this.treeView.Visible = false;

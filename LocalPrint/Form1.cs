@@ -18,18 +18,8 @@ namespace LocalPrint
 {
     public partial class Form1 : Form
     {
-        System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)//把DLL打包到EXE需要用到
-        {
-            string dllName = args.Name.Contains(",") ? args.Name.Substring(0, args.Name.IndexOf(',')) : args.Name.Replace(".dll", "");
-            dllName = dllName.Replace(".", "_");
-            if (dllName.EndsWith("_resources")) return null;
-            System.Resources.ResourceManager rm = new System.Resources.ResourceManager(GetType().Namespace + ".Properties.Resources", System.Reflection.Assembly.GetExecutingAssembly());
-            byte[] bytes = (byte[])rm.GetObject(dllName);
-            return System.Reflection.Assembly.Load(bytes);
-        }
         public Form1()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             InitializeComponent();
         }
         string Port = "23333";//默认端口号
@@ -77,7 +67,7 @@ namespace LocalPrint
             {
                 webServer.AddHandler("/print", new PrintHandler());
 
-                notifyIcon1.Text = "本地打印服务 V1.0";
+                notifyIcon1.Text = "本地打印服务 V1.1";
                 notifyIcon1.BalloonTipText = "本地打印服务已启动！";
                 notifyIcon1.ShowBalloonTip(0);
                 PrintHandler.Printer = Printer;
