@@ -56,9 +56,18 @@ namespace LocalPrint
                 iniFileHelper.WriteIniString(section, "Printer", Printer);
             }
 
-
+            //获取本机IP地址
+            string localIP = "";
+            foreach (var host in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            {
+                if (host.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    localIP = host.ToString();
+                    break;
+                }
+            }
             WebServer webServer = new WebServer();
-            if (!webServer.RunWeb("http://localhost:"+ Port+"/"))
+            if (!webServer.RunWeb("http://+:"+ Port+"/"))
             {
                 MessageBox.Show(webServer.Err);
                 Application.Exit();

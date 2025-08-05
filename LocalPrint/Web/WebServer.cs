@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -46,7 +47,7 @@ namespace LocalPrint.Web
                 return false;
             }
         }
-        //HTTP数据处理，这一部分相当于C#，JAVA和PHP和其他语言的功能，WEB服务器将请求转发给相应的语言处理，并把结果返回给浏览器
+        // 替换 Process 方法中 resOject 的定义和赋值方式，避免匿名类型属性只读问题
         void Process()
         {
             for (; ; )
@@ -57,32 +58,57 @@ namespace LocalPrint.Web
                 rep.ContentEncoding = Encoding.UTF8;
                 rep.Headers.Add("Access-Control-Allow-Origin", "*");//允许浏览器跨域！非常重要
                 rep.StatusCode = 404;
-                var ret = "pag not found";
-                //rep.ContentType = "text";//返回内容，这里为text，ajax里面的请求datatype也需要设置为text或者html，不然会为null
-                //这一部分其实就是大部分MVC网络框架里的路由部分！这里简单的发送原始文本给handler处理
+                rep.ContentType = "application/json;charset=UTF-8";
+                rep.AppendHeader("Content-Type", "application/json;charset=UTF-8");
+
+                // 使用可变对象代替匿名类型
+                var resObject = new ResponseObject
+                {
+                    success = false,
+                    code = 404,
+                    data = "未找到相关服务"
+                };
+
                 foreach (var kv in handlerMap)
                 {
-                    if(System.Text.RegularExpressions.Regex.IsMatch(req.RawUrl,kv.Key))//正则匹配
+                    if (System.Text.RegularExpressions.Regex.IsMatch(req.RawUrl, kv.Key))//正则匹配
                     {
                         var data = "";
                         if (req.HttpMethod == "GET")
                             data = req.RawUrl;//不做任何处理，直接将原始的http请求转发到handler。。。
                         else
-                        using (var r = new StreamReader(req.InputStream, Encoding.UTF8))
-                        {
-                            data = r.ReadToEnd();
-                        }
-                        ret = kv.Value.Handler(data);
+                            using (var r = new StreamReader(req.InputStream, Encoding.UTF8))
+                            {
+                                data = r.ReadToEnd();
+                            }
                         rep.StatusCode = 200;//ok
+                        resObject.success = true;
+                        resObject.code = 200;
+                        resObject.data = kv.Value.Handler(data);
                         break;
                     }
                 }
+                string responseString = JsonConvert.SerializeObject(resObject,
+                    new JsonSerializerSettings()
+                    {
+                        StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                    });
                 //返回处理结果给浏览器
-                using (var w = new StreamWriter(rep.OutputStream, Encoding.UTF8))
+                using (StreamWriter writer = new StreamWriter(rep.OutputStream, Encoding.UTF8))
                 {
-                    w.WriteLine(ret);
+                    writer.Write(responseString);
+                    writer.Close();
+                    rep.Close();
                 }
             }
+        }
+
+        // 在文件末尾或合适位置添加 ResponseObject 类
+        class ResponseObject
+        {
+            public bool success { get; set; }
+            public int code { get; set; }
+            public string data { get; set; }
         }
 
     }
